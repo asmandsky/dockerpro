@@ -11,8 +11,8 @@ $array = [
 
 $ids = array_column($array,'id');
 $unique = array_unique($ids);
-$array = array_filter($array, function ($key, $val) use ($unique) {
-    return in_array($val, array_keys($unique));
+$array = array_filter($array, function ($val, $key) use ($unique) {
+    return in_array($key, array_keys($unique));
 },ARRAY_FILTER_USE_BOTH);
 $array = array_values($array);
 
@@ -56,8 +56,8 @@ print_r($array);
 $condition = [id => 2];
 $_key = key($condition);
 
-$array = array_filter($array, function ($key) use ($condition, $_key) {
-    return (!empty($key[$_key]) && $key[$_key] == $condition[$_key]);
+$array = array_filter($array, function ($val) use ($condition, $_key) {
+    return (!empty($val[$_key]) && $val[$_key] == $condition[$_key]);
 },ARRAY_FILTER_USE_BOTH);
 
 echo "\n3) вернуть из массива только элементы, удовлетворяющие внешним условиям (например элементы с определенным id)\n";
