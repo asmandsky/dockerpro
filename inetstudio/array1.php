@@ -17,8 +17,9 @@ $array = array_filter($array, function ($key, $val) use ($unique) {
 
 echo "\n1) выделить уникальные записи (убрать дубли) в отдельный массив. в конечном массиве не должно быть элементов с одинаковым id.\n";
 print_r($array);
+$array1 = $array;
 
-function checkData($key, $_value)
+function checkData(string $key, array $_value): string
 {
     $value = $_value[$key];
     switch ($key) {
@@ -46,15 +47,22 @@ uksort($array, function ($key1, $key2) use ($array, $key, $sort) {
         return ($value1 > $value2) ? -1 : 1;
 });
 
-echo "\n2) отсортировать многомерный массив по ключу (любому) \n";
+echo "\n2) отсортировать многомерный массив по ключу (любому)\n";
 print_r($array);
 
 $condition = [id => 2];
-$array = array_filter($array, function ($key) use ($condition) {
-    $_key = key($condition);
+$_key = key($condition);
+$array = array_filter($array, function ($key) use ($condition, $_key) {
     return (!empty($key[$_key]) && $key[$_key] == $condition[$_key]);
 },ARRAY_FILTER_USE_BOTH);
 
-echo "\n3) вернуть из массива только элементы, удовлетворяющие внешним условиям (например элементы с определенным id) \n";
+echo "\n3) вернуть из массива только элементы, удовлетворяющие внешним условиям (например элементы с определенным id)\n";
 print_r($array);
+
+$ids1 = array_column($array1, 'id', 'name');
+
+echo "\n4) изменить в массиве значения и ключи (использовать name => id в качестве пары ключ => значение)\n";
+print_r($ids1);
+
+
 
