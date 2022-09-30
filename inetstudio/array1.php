@@ -14,6 +14,7 @@ $unique = array_unique($ids);
 $array = array_filter($array, function ($key, $val) use ($unique) {
     return in_array($val, array_keys($unique));
 },ARRAY_FILTER_USE_BOTH);
+$array = array_values($array);
 
 echo "\n1) выделить уникальные записи (убрать дубли) в отдельный массив. в конечном массиве не должно быть элементов с одинаковым id.\n";
 print_r($array);
