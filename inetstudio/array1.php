@@ -17,6 +17,7 @@ $array = array_filter($array, function ($key, $val) use ($unique) {
 
 echo "\n1) выделить уникальные записи (убрать дубли) в отдельный массив. в конечном массиве не должно быть элементов с одинаковым id.\n";
 print_r($array);
+
 $array1 = $array;
 
 function checkData(string $key, array $_value): string
@@ -32,12 +33,13 @@ function checkData(string $key, array $_value): string
     return $value;
 }
 
-$key = 'date';
-$sort = 'asc';
+$condition = [date => 'asc'];
+$_key = key($condition);
+$sort = $condition[$_key];
 
-uksort($array, function ($key1, $key2) use ($array, $key, $sort) {
-    $value2 = checkData($key, $array[$key2]);
-    $value1 = checkData($key, $array[$key1]);
+uksort($array, function ($key1, $key2) use ($array, $_key, $sort) {
+    $value2 = checkData($_key, $array[$key2]);
+    $value1 = checkData($_key, $array[$key1]);
     if ($value2 == $value1) {
         return 0;
     }
@@ -52,6 +54,7 @@ print_r($array);
 
 $condition = [id => 2];
 $_key = key($condition);
+
 $array = array_filter($array, function ($key) use ($condition, $_key) {
     return (!empty($key[$_key]) && $key[$_key] == $condition[$_key]);
 },ARRAY_FILTER_USE_BOTH);
