@@ -12,4 +12,8 @@ FROM inetstudio_goods AS ig
 WHERE igt1.count = 1
 
 -- Выбрать без join-ов и подзапросов все департаменты, в которых есть мужчины, и все они (каждый) поставили высокую оценку (строго выше 5).
-
+SELECT department_id
+FROM inetstudio_evaluations
+WHERE gender = 1
+AND value > 5
+GROUP BY department_id
