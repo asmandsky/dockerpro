@@ -2,12 +2,12 @@
 -- В базе данных имеется таблица с товарами goods (id INTEGER, name TEXT), таблица с тегами tags (id INTEGER, name TEXT) и таблица связи товаров и тегов goods_tags (tag_id INTEGER, goods_id INTEGER, UNIQUE(tag_id, goods_id)). Выведите id и названия всех товаров, которые имеют все возможные теги в этой базе.
 SELECT ig.id, ig.name
 FROM inetstudio_goods AS ig
-         INNER JOIN (
+INNER JOIN (
     SELECT igt.goods_id,
            count(igt.tag_id) AS count_tags
-    FROM inetstudio_goods_tags AS igt
-             INNER JOIN inetstudio_tags AS it ON it.id = igt.tag_id
-    GROUP BY igt.goods_id
+      FROM inetstudio_goods_tags AS igt
+INNER JOIN inetstudio_tags AS it ON it.id = igt.tag_id
+  GROUP BY igt.goods_id
 ) AS igt1 ON igt1.goods_id = ig.id
 WHERE igt1.count_tags = (SELECT COUNT(*) FROM inetstudio_tags)
 
