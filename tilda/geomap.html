@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>фронт</title>
+    <script charset="utf-8" src="http://api-maps.yandex.ru/1.1/index.xml" type="text/javascript"/>
+</head>
+<body>
+
+<div class="phone" id="header"></div>
+<div class="phone" id="footer"></div>
+
+<script>
+    let city_tel = {
+        'Москва': '8-800-111-22-33',
+        'Тюмень': '8-800-222-33-44',
+        'Тамбов': '8-800-333-44-55',
+    };
+    if(YMaps.location) {
+        let ct = city_tel[YMaps.location.city] != undefined ? city_tel[YMaps.location.city] : '8-800-DIGITS';
+        //let ct = city_tel['Тамбов'] != undefined ? city_tel['Тамбов'] : '8-800-DIGITS';
+        let phone = document.querySelectorAll('div.phone');
+        if(phone) {
+            phone.forEach(function(item) {
+                //console.log(item.id);
+                var elem = document.createElement("h2");
+                var elemText = document.createTextNode(ct);
+                elem.appendChild(elemText);
+                item.appendChild(elem);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
